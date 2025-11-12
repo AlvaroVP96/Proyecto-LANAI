@@ -5,7 +5,9 @@ Informe/*
 !Informe/*.tex
 !Informe/figuras/
 !Informe/figuras/**
+!Informe/build/
 !Informe/build/*.pdf
+
 
 # === Archivos de LaTeX comunes (por si están fuera) ===
 *.aux
