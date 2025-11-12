@@ -1,0 +1,26 @@
+# === Ignorar todo dentro de /Memoria ===
+Informe/*
+
+# === Pero conservar lo importante ===
+!Informe/*.tex
+!Informe/figuras/
+!Informe/figuras/**
+!Informe/build/*.pdf
+
+# === Archivos de LaTeX comunes (por si están fuera) ===
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.lof
+*.lot
