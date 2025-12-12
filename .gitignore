@@ -27,3 +27,127 @@ Informe/*
 *.lof
 *.lot
 *.jpg
+
+
+# ============================================
+# ENTORNOS VIRTUALES PYTHON
+# ============================================
+venv/
+venv_*/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+*.virtualenv
+
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================
+# BASE DE DATOS
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+acceso.db
+
+# ============================================
+# CONFIGURACIÓN SENSIBLE
+# ============================================
+admin_config.json
+.env
+.env.local
+
+# ============================================
+# LOGS
+# ============================================
+logs/
+*.log
+
+# ============================================
+# SISTEMA OPERATIVO
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================================
+# IDEs Y EDITORES
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# INFORME LATEX
+# ============================================
+Informe/*
+!Informe/*.tex
+!Informe/figuras/
+!Informe/figuras/**
+!Informe/build/
+!Informe/build/*.pdf
+
+# Archivos LaTeX temporales
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.lof
+*.lot
+
+# ============================================
+# OTROS
+# ============================================
+*.bak
+*.backup
+*.tmp
+*~
