@@ -1,95 +1,597 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{graphicx}
-\usepackage{float}
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
 \usepackage{geometry}
+\usepackage{float}
 \geometry{margin=2.5cm}
 
-\title{Informe del Proyecto LANAI}
-\author{Tu Nombre}
-\date{\today}
+\makeatother
+
+\lstset{
+  language=C++,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  frame=single,
+  breaklines=true,
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+           {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+}
+
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+    \centering
+    
+    % --- Título ---
+    {\Huge \textbf{Sistema de Control de Acceso}\par}
+    \vspace{0.5cm}
+    
+    % --- Subtítulo ---
+    {\Large Reconocimiento Facial y Detección de Gestos\par}
+    \vspace{1cm}
+    {\Large Asignatura: LANAI\par}
+    {\Large Máster Universitario de Informática Industrial y Robótica.\par}
+    \vspace{2cm}
+    
+    % --- Autor ---
+    {\large Autor: Álvaro Viña Pérez\par}
+    {\large Fecha: \today\par}
+
+    \vspace{3cm}
+
+    % --- Logo o imagen principal ---
+    \includegraphics[scale=0.9]{figuras/descarga.jpg}\par\vspace{1cm}
+    
+    \vfill  % empuja el texto inferior al final de la página
+    
+    \begin{flushright}
+        \includegraphics[width=0.25\textwidth]{figuras/Marca-Universidad-de-La-Laguna_RGB.png}
+    \end{flushright}
+\end{titlepage}
+
+
+\newpage
 \tableofcontents
 \newpage
 
-\section{Introducción}
-Este informe presenta el desarrollo del proyecto LANAI, describiendo los pasos realizados hasta la fecha y los resultados obtenidos.
+\section{Descripción General}
 
-\section{Objetivos}
-Describir los objetivos principales del proyecto LANAI.
+\subsection{Introducción}
+Este proyecto desarrollado para la asignatura \textbf{LANAI} presenta un sistema avanzado 
+de \textbf{control de acceso inteligente} basado en \textbf{reconocimiento facial} y 
+\textbf{detección de gestos}. El sistema integra tecnologías de visión por computadora, 
+aprendizaje automático y gestión de bases de datos para proporcionar un control de acceso seguro, 
+robusto e intuitivo.
 
-\section{Metodología}
+\subsection{Objetivos del Proyecto}
 
-\subsection{Paso 1: Configuración del Entorno}
-Se configuró el entorno de desarrollo necesario para el proyecto, incluyendo la instalación de dependencias y herramientas.
+El proyecto tiene como objetivo principal desarrollar un sistema de control de acceso que sea:
+
+\begin{itemize}
+    \item \textbf{Seguro:} Utiliza tecnologías de reconocimiento facial de última generación para 
+    garantizar autenticación confiable.
+    \item \textbf{Intuitivo:} Interfaz gráfica amigable que permite a los administradores 
+    gestionar usuarios y permisos de forma sencilla.
+    \item \textbf{Escalable:} Arquitectura modular que permite expandir funcionalidades e 
+    integrar nuevas características.
+    \item \textbf{Eficiente:} Procesamiento optimizado de imágenes y análisis 
+    de datos en tiempo real.
+    \item \textbf{Auditable:} Registro detallado de intentos de acceso con 
+    timestamps y datos de seguridad.
+\end{itemize}
+
+\subsection{Características Principales}
+
+El sistema incluye las siguientes funcionalidades:
+
+\begin{enumerate}
+    \item \textbf{Registro de Rostros:} Captura y almacenamiento de características 
+    faciales de usuarios autorizados.
+    
+    \item \textbf{Autenticación Biométrica:} Verificación de identidad mediante 
+    análisis facial en tiempo real.
+    
+    \item \textbf{Detección de Gestos:} Reconocimiento de gestos corporales para 
+    interacción adicional con el sistema.
+    
+    \item \textbf{Gestión de Usuarios:} Panel administrativo para agregar/eliminar 
+    usuarios, asignar permisos y visualizar historial.
+    
+    \item \textbf{Interfaz Gráfica Moderna:} Aplicación de escritorio basada en Tkinter
+    con diseño intuitivo.
+    
+    \item \textbf{Base de Datos Segura:} Almacenamiento de datos de usuarios con 
+    encriptación de credenciales.
+    
+    \item \textbf{Logging y Auditoría:} Registro comprensivo de eventos de acceso 
+    y actividades del sistema.
+\end{enumerate}
+
+\subsection{Tecnologías Utilizadas}
+
+\begin{itemize}
+    \item \textbf{Lenguaje:} Python 3.11
+    \item \textbf{GUI:} Tkinter para interfaz gráfica
+    \item \textbf{Visión por Computadora:} OpenCV para procesamiento de imágenes y video
+    \item \textbf{Reconocimiento Facial:} DeepFace con soporte para múltiples modelos
+    \item \textbf{Detección de Gestos:} MediaPipe para análisis de pose y gestos corporales
+    \item \textbf{Base de Datos:} SQLite para almacenamiento relacional
+    \item \textbf{Cálculo Numérico:} NumPy para operaciones matemáticas
+\end{itemize}
+
+\subsection{Estructura del Proyecto}
+
+El código está organizado en módulos especializados:
+
+\begin{itemize}
+    \item \textbf{core/} - Módulos del sistema:
+    \begin{itemize}
+        \item \texttt{db\_manager.py}: Gestión de base de datos
+        \item \texttt{face\_recognition.py}: Lógica de reconocimiento facial
+        \item \texttt{gesture\_detection.py}: Detección de gestos
+    \end{itemize}
+    
+    \item \textbf{gui/} - Interfaz gráfica:
+    \begin{itemize}
+        \item \texttt{admin\_window.py}: Panel de administración
+        \item \texttt{access\_window.py}: Ventana de acceso
+    \end{itemize}
+    
+    \item \textbf{dialogs/} - Diálogos especializados para registro de usuarios y captura de rostros
+    
+    \item \textbf{utils/} - Utilidades de autenticación y configuración
+\end{itemize}
+
+\newpage
+\section{Desarrollo de la solucion adoptada}
+
+En esta sección se describe el proceso de desarrollo del proyecto, incluyendo los desafíos encontrados y las soluciones implementadas.
+
+\subsection{Fase 1: Selección de Tecnologías y Arquitectura Base}
+
+En la fase inicial del proyecto se evaluaron diferentes tecnologías para implementar el sistema de 
+reconocimiento facial. La solución adoptada se basa en \textbf{OpenCV} y \textbf{DeepFace}, 
+herramientas ampliamente utilizadas en visión por computadora que ofrecen un equilibrio entre 
+precisión y eficiencia computacional.
+
+Durante la investigación, se identificaron métodos avanzados de anti-spoofing y detección de 
+ataques biométricos que podrían mejorar significativamente la robustez del sistema. Sin embargo, 
+estas técnicas presentaban requisitos computacionales elevados que superaban las capacidades del 
+hardware disponible para el desarrollo. Entre los métodos descartados se incluyen:
+
+\begin{itemize}
+    \item \textbf{Análisis de Textura 3D:} Requiere procesamiento intensivo de múltiples 
+    capas de profundidad
+    \item \textbf{Detección de Parpadeo:} Demanda análisis de fotogramas a alta velocidad
+    \item \textbf{Análisis de Movimiento Facial:} Necesita procesamiento paralelo 
+    de secuencias de video
+    \item \textbf{Verificación Multimodal Avanzada:} Combina múltiples biometría 
+    simultáneamente
+\end{itemize}
+
+Ante estas limitaciones, se decidió complementar el reconocimiento facial con un 
+\textbf{sistema de detección de gestos} basado en \textbf{MediaPipe}. Este enfoque 
+proporciona una capa adicional de autenticación mediante la verificación de gestos 
+corporales específicos, mejorando significativamente la seguridad del sistema sin requerir 
+recursos computacionales excesivos.
+
+\subsection{Fase 2: Base de Datos — Diseño y Estructura}
+
+Para el almacenamiento persistente se emplea \textbf{SQLite}, por su sencillez de despliegue y compatibilidad con Python sin necesidad de servidor externo. La base de datos se inicializa automáticamente al arrancar la aplicación si no existe el fichero, creando las tablas y claves foráneas necesarias. Los accesos se encapsulan en el módulo \texttt{core/db\_manager.py}, que expone funciones para alta/baja de usuarios, almacenamiento de embeddings faciales y registro de eventos.
+
+La estructura se compone de tres tablas principales:
+\begin{itemize}
+    \item \textbf{users}: información básica del usuario.
+        \begin{itemize}
+            \item \texttt{id} INTEGER PRIMARY KEY AUTOINCREMENT
+            \item \texttt{name} TEXT NOT NULL
+            \item \texttt{pin} TEXT NOT NULL              % hash bcrypt del PIN
+            \item \texttt{active} INTEGER DEFAULT 1
+            \item \texttt{created\_at} DATETIME DEFAULT CURRENT\_TIMESTAMP
+        \end{itemize}
+    \item \textbf{faces}: múltiples embeddings por usuario.
+        \begin{itemize}
+            \item \texttt{id} INTEGER PRIMARY KEY AUTOINCREMENT
+            \item \texttt{user\_id} INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
+            \item \texttt{encoding\_json} TEXT NOT NULL    % embedding serializado en JSON
+            \item \texttt{created\_at} DATETIME DEFAULT CURRENT\_TIMESTAMP
+        \end{itemize}
+    \item \textbf{events}: auditoría de acciones y resultados.
+        \begin{itemize}
+            \item \texttt{id} INTEGER PRIMARY KEY AUTOINCREMENT
+            \item \texttt{ts} DATETIME DEFAULT CURRENT\_TIMESTAMP
+            \item \texttt{device} TEXT
+            \item \texttt{user\_id} INTEGER REFERENCES users(id)
+            \item \texttt{result} TEXT                    % p.ej., 'permitido', 'denegado', 'error'
+            \item \texttt{note} TEXT                      % detalle adicional
+        \end{itemize}
+\end{itemize}
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imagen1.png}
-    \caption{Configuración del entorno}
-    \label{fig:config}
+    \includegraphics[width=0.70\textwidth]{figuras/tabla eventos.png}
+    \caption{Tabla de eventos vista mediante el software SQLite}
+    \label{fig:Eventos}
 \end{figure}
 
-\subsection{Paso 2: Recopilación de Datos}
-Se realizó la recopilación inicial de datos necesarios para el entrenamiento del modelo.
+El \textbf{flujo de inicialización} crea las tablas si no existen y aplica \texttt{PRAGMA foreign\_keys=ON} para garantizar integridad referencial. Durante el \textit{registro de usuario}, se inserta la fila en \texttt{users} con el PIN \textbf{encriptado con bcrypt}, y a continuación se añaden varios embeddings en \texttt{faces} vinculados por \texttt{user\_id}. En \textit{autenticación}, se carga un \textbf{snapshot} de usuarios activos y sus embeddings (\texttt{fetch\_active\_users\_and\_faces}) para el matching por similitud coseno. Todos los eventos críticos (acceso permitido/denegado, tiempo agotado, errores de cámara o rostro no detectado) se registran en \texttt{events} con su timestamp para trazabilidad.
+
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imagen2.png}
-    \caption{Proceso de recopilación de datos}
-    \label{fig:datos}
+    \includegraphics[width=0.70\textwidth]{figuras/BBDD.png}
+    \caption{Base de datos en SQLite}
+    \label{fig:BBDD}
 \end{figure}
 
-\subsection{Paso 3: Preprocesamiento}
-Los datos recopilados fueron preprocesados para su correcta utilización en el modelo.
+\subsection{Fase 3: Implementación del Reconocimiento Facial}
+
+\subsubsection{Arquitectura del Módulo}
+
+El módulo de reconocimiento facial se implementó en \texttt{core/face\_recognition.py} siguiendo 
+un patrón modular que separa las responsabilidades de captura, procesamiento y verificación.
+
+La clase \textbf{FaceRecognizer} encapsula la lógica principal:
+
+\begin{itemize}
+    \item \textbf{Captura de Video:} Inicialización de cámara mediante OpenCV
+    \item \textbf{Detección de Rostros:} Utilización de modelos pre-entrenados
+    \item \textbf{Extracción de Características:} Generación de embeddings faciales mediante DeepFace
+    \item \textbf{Verificación de Identidad:} Comparación de características con base de datos
+    \item \textbf{Logging de Eventos:} Registro de intentos de autenticación
+\end{itemize}
+
+\subsubsection{Funcionamiento del Reconocimiento Facial}
+
+El reconocimiento facial se basa en la extracción de un vector de características 
+(embedding) a partir de un fotograma capturado con OpenCV. El frame se pasa directamente 
+a \textit{DeepFace}, que aplica el detector configurado y, si encuentra rostro, genera 
+la representación numérica del mismo mediante el modelo elegido en \texttt{config.py}. 
+Esta representación es un vector de alta dimensión que describe la identidad del rostro 
+de forma robusta frente a variaciones moderadas de pose, iluminación y expresión.
+
+Una vez obtenido el embedding del usuario en tiempo real, el sistema lo compara contra 
+los embeddings almacenados por cada usuario activo. Para cada usuario existe un conjunto 
+de ejemplos previos que reflejan distintas condiciones de captura. La comparación se realiza 
+con la similitud coseno, que mide el ángulo entre vectores y favorece comparaciones en espacios
+ normalizados, evitando que la magnitud distorsione el resultado. Para cada usuario se calcula 
+ el mejor caso (el máximo valor de similitud) y se selecciona el usuario cuyo valor global sea 
+ mayor. Este valor se contrasta en la interfaz con un umbral definido para decidir si la coincidencia
+  es suficientemente fiable como para continuar con la verificación por PIN. Si no se detecta rostro,
+   \textit{DeepFace} lanza una excepción y la interfaz muestra el error correspondiente, manteniendo 
+   el flujo controlado y predecible.
+
+\subsubsection{Proceso de Registro de Rostros}
+
+Durante el registro, el sistema captura múltiples fotogramas del usuario desde diferentes ángulos 
+para crear un modelo facial robusto. El proceso incluye:
+
+\begin{enumerate}
+    \item Captura de al menos 10 fotogramas con calidad mínima de detección
+    \item Validación de cada fotograma para evitar imágenes borrosas o parcialmente ocluidas
+    \item Generación de embeddings faciales usando el modelo ResNet50 de DeepFace
+    \item Almacenamiento de las características en la base de datos SQLite
+    \item Confirmación visual al usuario del registro exitoso
+\end{enumerate}
+
+\subsubsection{Proceso de Autenticación}
+
+El proceso de autenticación en tiempo real implementa los siguientes pasos:
+
+\begin{enumerate}
+    \item Captura continua del stream de video
+    \item Detección de rostros en cada fotograma utilizando MTCNN (Multi-task Cascaded Convolutional Networks)
+    \item Extracción de embedding facial del rostro detectado
+    \item Comparación con embeddings almacenados usando distancia euclidiana
+    \item Aplicación de threshold de similitud (configurado en 0.7 en el archivo config.py)
+    \item Generación de log con timestamp, usuario identificado y grado de confianza
+    \item Activación de mecanismo de acceso si la similitud supera el threshold
+\end{enumerate}
+
+\subsubsection{Optimizaciones Implementadas}
+
+Se aplicaron varias optimizaciones para mejorar el rendimiento:
+
+\begin{itemize}
+    \item \textbf{Reducción de Resolución:} Procesamiento de fotogramas a 320x240 píxeles 
+    para detectar rostros, manteniendo precisión
+    
+    \item \textbf{Caché de Embeddings:} Almacenamiento en memoria de características faciales 
+    para reducir accesos a base de datos
+    
+    \item \textbf{Procesamiento Asincrónico:} Utilización de threads para evitar bloqueos 
+    en la interfaz gráfica
+    
+    \item \textbf{Detección Selectiva:} Análisis solo cuando se detecta movimiento 
+    significativo en la imagen
+    
+    \item \textbf{Modelos Ligeros:} Selección de DeepFace con modelo VGGFace2 
+    como balance entre precisión y velocidad
+\end{itemize}
+
+\subsubsection{Gestión de Errores y Casos Especiales}
+
+El módulo implementa manejo robusto de situaciones problemáticas:
+
+\begin{itemize}
+    \item \textbf{Rostro No Detectado:} Reintentos automáticos durante 5 segundos
+    \item \textbf{Múltiples Rostros:} Selección del rostro más prominente o rechazo si la ambigüedad 
+    es alta
+    \item \textbf{Oclusión Parcial:} Evaluación de calidad antes de procesar
+    \item \textbf{Problemas de Iluminación:} Ajuste automático de contraste y brillo
+    \item \textbf{Fallo de Cámara:} Mensaje de error y logging de incidente
+\end{itemize}
+
+\subsection{Fase 4: Verificación por PIN y uso de bcrypt}
+
+En esta fase se añade una segunda capa de seguridad tras el reconocimiento 
+facial. La interfaz solicita al usuario su PIN mediante un diálogo modal. 
+El PIN introducido nunca se almacena en claro: se compara contra el hash guardado 
+en la base de datos utilizando \textit{bcrypt}, un algoritmo de hashing adaptativo 
+diseñado para credenciales.
+
+El flujo es el siguiente: una vez identificada la mejor coincidencia facial por encima 
+del umbral, se muestra el diálogo de PIN. El valor introducido se transforma a bytes y 
+se verifica con \texttt{bcrypt.checkpw(pin\_bytes, hash\_bytes)}. Si la verificación es 
+correcta, se concede el acceso y se registra el evento en la tabla \texttt{events}. En caso
+ contrario, se deniega y se notifica el fallo.
+
+Para el registro de nuevos usuarios, el PIN se cifra con \textit{bcrypt} antes de persistirlo 
+(\texttt{bcrypt.hashpw(pin, salt)}), incluyendo una sal aleatoria y un coste configurable que
+ determina el número de rondas de cálculo. Este enfoque evita almacenar credenciales en texto 
+ plano y dificulta ataques por fuerza bruta al incrementar el coste computacional de cada intento.
+
+La combinación de autenticación biométrica y verificación por PIN endurece el sistema frente 
+a intentos de suplantación, manteniendo la experiencia de usuario simple y controlada desde la GUI.
+
+
+\subsection{Fase 5: Detección de Gestos}
+
+
+
+\subsubsection{Arquitectura del Módulo}
+
+El módulo de detección de gestos se implementó en \texttt{core/gesture\_detection.py} utilizando 
+\textbf{MediaPipe Hands} (21 landmarks por mano). La clase \textbf{GestureDetector} encapsula:
+
+\begin{itemize}
+    \item \textbf{Análisis de Manos:} Detección y seguimiento de manos con \texttt{mp.solutions.hands}
+    \item \textbf{Clasificación de Gestos:} Reglas geométricas sobre coordenadas de landmarks (x, y)
+    \item \textbf{Validación Temporal:} Requisito de frames consecutivos válidos para confirmar gesto
+\end{itemize}
+
+\subsubsection{Gestos Implementados}
+
+El sistema reconoce:
+
+\begin{enumerate}
+    \item \textbf{Pulgar Arriba:} Pulgar extendido y resto de dedos plegados
+    \item \textbf{Victoria (2 dedos):} Índice y medio extendidos, resto plegados
+    \item \textbf{OK (Círculo):} Pulgar e índice en contacto; al menos 3 dedos levantados
+    \item \textbf{Mano Abierta (5 dedos):} Todos los dedos extendidos
+    \item \textbf{Puño Cerrado:} Ningún dedo extendido
+\end{enumerate}
+
+\subsubsection{Funcionamiento de la Detección de Gestos}
+
+La detección de gestos utiliza \textit{MediaPipe Hands} para identificar y 
+seguir 21 puntos de referencia por mano en cada fotograma del vídeo. A partir 
+de las coordenadas normalizadas de estos landmarks, el sistema aplica reglas geométricas 
+sencillas que comparan posiciones relativas entre la punta de cada dedo y su articulación 
+media, y emplea condiciones específicas para el pulgar, cuya orientación requiere comprobaciones 
+en los ejes X e Y. Con estas reglas se clasifican gestos como pulgar arriba, victoria (dos dedos), 
+OK (círculo pulgar–índice), mano abierta y puño cerrado.
+
+La interfaz solicita un gesto aleatorio y superpone los landmarks junto con una barra de 
+progreso que refleja la validación temporal. No basta con un único fotograma correcto: se 
+exige coherencia a lo largo del tiempo. Por ello, el sistema requiere 30 fotogramas consecutivos 
+válidos del gesto solicitado para confirmarlo. Cuando el fotograma no coincide, se penaliza el 
+contador para evitar falsos positivos por ruido o detecciones inestables. Tras validar el gesto,
+ se captura un fotograma para el reconocimiento facial y, si la similitud supera el umbral, se 
+ solicita el PIN y se completa el proceso de acceso.
+
+\subsubsection{Algoritmo de Detección}
+
+\begin{enumerate}
+    \item Captura continua de video con OpenCV
+    \item Procesamiento del fotograma con MediaPipe Hands
+    \item Extracción de coordenadas (x, y) de los 21 landmarks por mano
+    \item Conteo de dedos levantados comparando puntas con articulaciones medias
+    \item Reglas específicas por gesto (p. ej., proximidad pulgar–índice para “OK”)
+    \item Validación por \textbf{frames consecutivos}: se requiere \textbf{30} frames válidos
+\end{enumerate}
+
+\subsubsection{Integración con Autenticación}
+
+\begin{itemize}
+    \item Antes del reconocimiento facial, se solicita \textbf{un gesto aleatorio} del conjunto disponible
+    \item El usuario dispone de \textbf{GESTURE\_TIMEOUT} segundos (config.py) para completarlo
+    \item El progreso se muestra con una \textbf{barra} y porcentaje; al alcanzar 30 frames válidos, el gesto se valida
+    \item Si el gesto se valida, se continúa con reconocimiento facial y, posteriormente, verificación de PIN
+    \item Fallos o timeout registran el evento y deniegan el acceso
+\end{itemize}
+
+\subsection{Fase 6: Desarrollo de la Interfaz Gráfica}
+
+\subsubsection{Tecnología de la GUI}
+La interfaz se desarrolló con \textbf{Tkinter}, integrando:
+\begin{itemize}
+    \item \textbf{Canvas de Video:} Renderizado de frames de cámara (OpenCV → PIL → Tkinter).
+    \item \textbf{Panel de Control:} Botón principal de verificación, estado del sistema y acceso a 
+    administración.
+    \item \textbf{Indicadores:} Número de usuarios activos y 
+    mensajes de estado en tiempo real.
+\end{itemize}
+
+\subsubsection{Estructura de la Ventana}
+La clase \texttt{VentanaAcceso} crea una ventana principal con:
+\begin{itemize}
+    \item \textbf{Panel Izquierdo (Cámara):} Muestra la vista en vivo y, durante la 
+    verificación, superpone landmarks de MediaPipe Hands y barra de progreso del gesto.
+    \item \textbf{Panel Derecho (Controles):} Botón “Verificar Acceso”, estado textual, 
+    separadores y acceso al panel de administración.
+    \item \textbf{Diálogos:} Solicitud de PIN y ventana de \texttt{VentanaSalida} 
+    para registrar la salida.
+\end{itemize}
+
+\subsubsection{Gestión del Ciclo de Video}
+\begin{itemize}
+    \item \textbf{Captura:} \texttt{cv2.VideoCapture} con ajustes de resolución (Windows: CAP\_DSHOW).
+    \item \textbf{Actualización:} Bucle con \texttt{root.after(30)} (~33 FPS) que pinta el frame en el canvas.
+    \item \textbf{Pausa/Reanudación:} Al abrir el panel de admin se libera la cámara 
+    y se muestra un mensaje; al cerrar, se reanuda.
+\end{itemize}
+
+\subsubsection{Flujo de Verificación en la GUI}
+\begin{enumerate}
+    \item \textbf{Gestos:} Se solicita un gesto aleatorio; se valida con \texttt{GestureDetector} 
+    y 30 frames consecutivos correctos, mostrando una barra de progreso.
+    \item \textbf{Captura de Frame:} Se toma un frame espejado para el reconocimiento facial.
+    \item \textbf{Reconocimiento Facial:} Se obtiene el embedding (DeepFace) y se compara contra
+     usuarios activos.
+    \item \textbf{PIN:} Para el mejor match sobre el umbral, se solicita PIN y se verifica con 
+    \texttt{bcrypt}.
+\end{enumerate}
+
+\subsubsection{Concurrencia y Estado}
+\begin{itemize}
+    \item \textbf{Hilo de Verificación:} La lógica completa corre en un hilo \texttt{daemon} para 
+    no bloquear la GUI.
+    \item \textbf{Estados:} Se actualiza el texto y color del estado 
+    (\textit{Cargando, Paso 1/4, Permitido, etc.}).
+    \item \textbf{Manejo de Errores:} Mensajes \texttt{messagebox} y 
+    \texttt{log\_event} ante fallos o tiempo agotado.
+\end{itemize}
+
+\newpage
+\section{Demostración del Flujo del Sistema}
+En esta sección se muestran capturas del proceso completo: solicitud de gesto, validación, reconocimiento facial y verificación por PIN.
+
+\subsection{Paso 1: Solicitud y Validación de Gesto}
+El sistema inicia la verificación pidiendo al usuario un gesto aleatorio de la lista soportada (pulgar arriba, victoria, OK, mano abierta o puño). En pantalla se muestran los \textit{landmarks} de la mano detectada y una barra de progreso que refleja la validación temporal: el gesto debe mantenerse correctamente durante 30 fotogramas consecutivos para considerarse válido. Si el gesto no coincide en un fotograma, el progreso se penaliza para evitar falsos positivos.
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imagen3.png}
-    \caption{Pipeline de preprocesamiento}
-    \label{fig:preproceso}
+    \includegraphics[width=0.70\textwidth]{figuras/Gesto.png}
+    \caption{Verificación del gesto solicitado con superposición de landmarks y barra de progreso.}
+    \label{fig:gesto_solicitado}
 \end{figure}
 
-\subsection{Paso 4: Desarrollo del Modelo}
-Se desarrolló e implementó el modelo principal del sistema LANAI.
+\subsection{Paso 2: Captura de Frame para Reconocimiento Facial}
+Una vez validado el gesto, se captura un fotograma de la cámara (vista espejada) y se envía a DeepFace para extraer el \textit{embedding} facial. Este vector se compara contra los embeddings almacenados por usuario para determinar la mejor coincidencia y su nivel de similitud.
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imagen4.png}
-    \caption{Arquitectura del modelo}
-    \label{fig:modelo}
+    \includegraphics[width=0.70\textwidth]{figuras/reconociendo.png}
+    \caption{Captura de cámara para la extracción del embedding facial y proceso de reconocimiento.}
+    \label{fig:captura_frame}
 \end{figure}
 
-\subsection{Paso 5: Entrenamiento}
-Se realizó el entrenamiento del modelo con los datos preparados.
+\subsection{Paso 3: Verificación de PIN y Acceso}
+Si la similitud supera el umbral definido, se solicita el PIN del usuario reconocido como segunda capa de seguridad. El PIN se verifica contra el hash almacenado en base de datos y, en caso de coincidencia, se concede el acceso y se muestra la ventana de registro de salida.
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imagen5.png}
-    \caption{Resultados del entrenamiento}
-    \label{fig:entrenamiento}
+    \includegraphics[width=0.5\textwidth]{figuras/pìn.png}
+    \caption{Diálogo de solicitud de PIN para confirmar la identidad.}
+    \label{fig:dialogo_pin}
 \end{figure}
 
-\section{Resultados Preliminares}
-Descripción de los resultados obtenidos hasta el momento.
+\subsection{Paso 4: Registro de salida}
+
+Tras conceder el acceso, el sistema muestra la ventana de “Registro de salida” con 
+el nombre del usuario identificado. Desde esta interfaz se confirma la salida 
+introduciendo de nuevo el PIN asociado, que se verifica contra el hash almacenado 
+en la base de datos. Una vez validado, se registra el evento en el sistema de logging 
+con timestamp y usuario, y se cierra la sesión mostrando un mensaje de confirmación. 
+Este paso garantiza trazabilidad de entradas y salidas, y evita usos indebidos al requerir
+ una confirmación explícita antes de finalizar.
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{resultado1.png}
-    \caption{Resultados preliminares}
-    \label{fig:resultados}
+    \includegraphics[width=0.70\textwidth]{figuras/registroSalida.png}
+    \caption{Confirmación de acceso concedido y registro de salida del usuario.}
+    \label{fig:registrosalida}
 \end{figure}
 
-\section{Conclusiones Parciales}
-Conclusiones sobre el trabajo realizado hasta la fecha.
 
-\section{Trabajo Futuro}
-Descripción de los próximos pasos a seguir en el desarrollo del proyecto.
+\subsection{Panel de Administración}
+
+El panel de administración ofrece funciones de \textit{superusuario} para gestionar 
+el sistema de forma segura. Desde esta interfaz es posible consultar la base de datos, 
+registrar y eliminar usuarios, así como activar o desactivar cuentas según las necesidades 
+operativas. Su diseño prioriza la claridad y la trazabilidad, integrando confirmaciones y 
+mensajes de estado durante cada acción.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{figuras/VentanaAdministrador.png}
+    \caption{Panel de administración: gestión de usuarios y estado del sistema.}
+    \label{fig:panel_admin}
+\end{figure}
+
+\subsubsection{Registro de nuevo usuario}
+
+El alta de usuarios sólo puede ser realizada por un administrador autorizado. El 
+proceso se compone de tres pasos guiados y verificados para garantizar la calidad de 
+los datos registrados.
+
+\paragraph{Paso 1: Nombre del usuario}
+El sistema solicita el nombre del nuevo usuario mediante un diálogo sencillo. 
+Este identificador se valida para evitar duplicidades y asegurar su consistencia 
+con la base de datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{figuras/registro1.png}
+    \caption{Registro de nuevo usuario: solicitud de nombre.}
+    \label{fig:Registro1}
+\end{figure}
+
+\paragraph{Paso 2: Captura de datos faciales}
+Se realizan cinco capturas del rostro con variaciones de pose y expresión 
+(frontal, desviación lateral leve, sonrisa y ceño fruncido). A partir de estas
+ imágenes, el sistema genera los \textit{embeddings} faciales que servirán como
+  referencia para la autenticación. Este conjunto de ejemplos mejora la robustez 
+  frente a cambios de iluminación y pose en el acceso.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figuras/registro2.png}
+    \caption{Registro de nuevo usuario: captura de datos faciales.}
+    \label{fig:Registro2}
+\end{figure}
+
+\paragraph{Paso 3: Establecimiento de PIN}
+Para añadir una segunda capa de seguridad, se solicita un PIN asociado al 
+usuario. El PIN se almacena cifrado (\textit{bcrypt}) en la base de datos, evitando 
+guardar credenciales en claro y reforzando la protección de la información.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figuras/registro3.png}
+    \caption{Registro de nuevo usuario: solicitud de PIN y confirmación de alta.}
+    \label{fig:Registro3}
+\end{figure}
+
+\paragraph{Actualización de la base de datos}
+Tras completar el registro, los datos del usuario y sus \textit{embeddings} se guardan en la base de datos. El panel confirma la operación y actualiza el listado de usuarios para reflejar el nuevo estado del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figuras/logactualizado.png}
+    \caption{Registro de nuevo usuario: base de datos actualizada.}
+    \label{fig:RegistroActualizado}
+\end{figure}
 
 \end{document}
