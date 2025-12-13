@@ -594,4 +594,26 @@ Tras completar el registro, los datos del usuario y sus \textit{embeddings} se g
     \label{fig:RegistroActualizado}
 \end{figure}
 
+
+\section{Conclusiones}
+
+El sistema desarrollado integra reconocimiento facial, verificación por gestos y PIN cifrado, ofreciendo una autenticación multifactor sencilla de usar y con buena trazabilidad gracias al registro de eventos. La arquitectura modular y el uso de SQLite facilitan el despliegue en entornos con recursos limitados, mientras que la GUI en Tkinter permite una operación clara y directa.
+
+\subsection*{Ventajas observadas}
+El enfoque combinado biométrico+PIN reduce la probabilidad de suplantación y mejora la seguridad sin penalizar en exceso la experiencia de usuario. La validación temporal de gestos incrementa la robustez ante ruido en detección de manos. El uso de embeddings múltiples por usuario aumenta la tasa de acierto en condiciones variadas de iluminación y pose.
+
+\subsection*{Desventajas y limitaciones}
+La ausencia de técnicas avanzadas de anti-spoofing deja abierto el riesgo frente a presentaciones con fotos o vídeos. La detección de pulgar puede verse afectada por orientación de la mano (diestra/zurda) y ángulo de cámara. El rendimiento depende del hardware disponible; en equipos modestos, DeepFace y MediaPipe pueden limitar la frecuencia de actualización.
+
+\subsection*{Posibles mejoras técnicas}
+\textbf{Software:} incorporar anti-spoofing (detección de vida, parpadeo o textura), suavizado temporal de landmarks, calibración de umbrales por usuario, almacenamiento binario de embeddings (en lugar de JSON) y tests automatizados para flujo de errores.  
+\textbf{Hardware:} cámara con mejor óptica y sensor para baja iluminación, iluminación frontal controlada, GPU dedicada para acelerar inferencia y, opcionalmente, dispositivos de autenticación complementarios (lector NFC/QR) para escenarios híbridos.
+
+\subsection*{Repositorio del proyecto}
+El código fuente completo y las instrucciones de instalación se encuentran en:
+
+
+\texttt{https://github.com/AlvaroVP96/Proyecto-LANAI.git} % Sustituir por la URL real del repositorio
+
+
 \end{document}
