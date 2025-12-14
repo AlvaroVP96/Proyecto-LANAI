@@ -50,7 +50,7 @@
     \vspace{3cm}
 
     % --- Logo o imagen principal ---
-    \includegraphics[scale=0.9]{figuras/descarga.jpg}\par\vspace{1cm}
+    \includegraphics[scale=0.25]{figuras/portada.png}\par\vspace{1cm}
     
     \vfill  % empuja el texto inferior al final de la página
     
@@ -62,6 +62,8 @@
 
 \newpage
 \tableofcontents
+\newpage
+\listoffigures
 \newpage
 
 \section{Descripción General}
@@ -277,60 +279,12 @@ Durante el registro, el sistema captura múltiples fotogramas del usuario desde 
 para crear un modelo facial robusto. El proceso incluye:
 
 \begin{enumerate}
-    \item Captura de al menos 10 fotogramas con calidad mínima de detección
+    \item Captura de 5 fotogramas con calidad mínima de detección
     \item Validación de cada fotograma para evitar imágenes borrosas o parcialmente ocluidas
-    \item Generación de embeddings faciales usando el modelo ResNet50 de DeepFace
+    \item Generación de embeddings faciales usando el modelo ArcFace de DeepFace
     \item Almacenamiento de las características en la base de datos SQLite
     \item Confirmación visual al usuario del registro exitoso
 \end{enumerate}
-
-\subsubsection{Proceso de Autenticación}
-
-El proceso de autenticación en tiempo real implementa los siguientes pasos:
-
-\begin{enumerate}
-    \item Captura continua del stream de video
-    \item Detección de rostros en cada fotograma utilizando MTCNN (Multi-task Cascaded Convolutional Networks)
-    \item Extracción de embedding facial del rostro detectado
-    \item Comparación con embeddings almacenados usando distancia euclidiana
-    \item Aplicación de threshold de similitud (configurado en 0.7 en el archivo config.py)
-    \item Generación de log con timestamp, usuario identificado y grado de confianza
-    \item Activación de mecanismo de acceso si la similitud supera el threshold
-\end{enumerate}
-
-\subsubsection{Optimizaciones Implementadas}
-
-Se aplicaron varias optimizaciones para mejorar el rendimiento:
-
-\begin{itemize}
-    \item \textbf{Reducción de Resolución:} Procesamiento de fotogramas a 320x240 píxeles 
-    para detectar rostros, manteniendo precisión
-    
-    \item \textbf{Caché de Embeddings:} Almacenamiento en memoria de características faciales 
-    para reducir accesos a base de datos
-    
-    \item \textbf{Procesamiento Asincrónico:} Utilización de threads para evitar bloqueos 
-    en la interfaz gráfica
-    
-    \item \textbf{Detección Selectiva:} Análisis solo cuando se detecta movimiento 
-    significativo en la imagen
-    
-    \item \textbf{Modelos Ligeros:} Selección de DeepFace con modelo VGGFace2 
-    como balance entre precisión y velocidad
-\end{itemize}
-
-\subsubsection{Gestión de Errores y Casos Especiales}
-
-El módulo implementa manejo robusto de situaciones problemáticas:
-
-\begin{itemize}
-    \item \textbf{Rostro No Detectado:} Reintentos automáticos durante 5 segundos
-    \item \textbf{Múltiples Rostros:} Selección del rostro más prominente o rechazo si la ambigüedad 
-    es alta
-    \item \textbf{Oclusión Parcial:} Evaluación de calidad antes de procesar
-    \item \textbf{Problemas de Iluminación:} Ajuste automático de contraste y brillo
-    \item \textbf{Fallo de Cámara:} Mensaje de error y logging de incidente
-\end{itemize}
 
 \subsection{Fase 4: Verificación por PIN y uso de bcrypt}
 
@@ -353,7 +307,6 @@ Para el registro de nuevos usuarios, el PIN se cifra con \textit{bcrypt} antes d
 
 La combinación de autenticación biométrica y verificación por PIN endurece el sistema frente 
 a intentos de suplantación, manteniendo la experiencia de usuario simple y controlada desde la GUI.
-
 
 \subsection{Fase 5: Detección de Gestos}
 
@@ -593,8 +546,6 @@ Tras completar el registro, los datos del usuario y sus \textit{embeddings} se g
     \caption{Registro de nuevo usuario: base de datos actualizada.}
     \label{fig:RegistroActualizado}
 \end{figure}
-
-
 \section{Conclusiones}
 
 El sistema desarrollado integra reconocimiento facial, verificación por gestos y PIN cifrado, ofreciendo una autenticación multifactor sencilla de usar y con buena trazabilidad gracias al registro de eventos. La arquitectura modular y el uso de SQLite facilitan el despliegue en entornos con recursos limitados, mientras que la GUI en Tkinter permite una operación clara y directa.
@@ -613,7 +564,7 @@ La ausencia de técnicas avanzadas de anti-spoofing deja abierto el riesgo frent
 El código fuente completo y las instrucciones de instalación se encuentran en:
 
 
-\texttt{https://github.com/AlvaroVP96/Proyecto-LANAI.git} % Sustituir por la URL real del repositorio
+\texttt{https://github.com/AlvaroVP96/Proyecto-LANAI.git} 
 
 
 \end{document}
