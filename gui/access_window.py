@@ -108,7 +108,7 @@ class VentanaAcceso:
         # Botón principal para iniciar verificación
         self.btn_verificar = tk.Button(
             frame_controles,
-            text="🔐 VERIFICAR ACCESO",
+            text="VERIFICAR ACCESO",
             font=("Arial", 16, "bold"),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -165,7 +165,7 @@ class VentanaAcceso:
         # Botón para abrir el panel de administración
         self.btn_admin = tk.Button(
             frame_controles,
-            text="⚙️ Panel Admin",
+            text="Panel Admin",
             font=("Arial", 10),
             bg=COLOR_INFO,
             fg="white",
@@ -197,7 +197,7 @@ class VentanaAcceso:
         self.canvas_video.create_text(
             CAMERA_WIDTH // 2,
             CAMERA_HEIGHT // 2,
-            text="⏸️ CÁMARA PAUSADA\n\n(Panel de administración abierto)",
+            text="CÁMARA PAUSADA\n\n(Panel de administración abierto)",
             font=("Arial", 20, "bold"),
             fill=COLOR_WARNING
         )
@@ -495,7 +495,7 @@ class VentanaSalida:
         # Título de bienvenida
         tk.Label(
             self.dialog,
-            text="✅ ACCESO CONCEDIDO",
+            text="ACCESO CONCEDIDO",
             font=("Arial", 20, "bold"),
             bg=COLOR_BG,
             fg=COLOR_SUCCESS
@@ -525,7 +525,7 @@ class VentanaSalida:
         # Botón salir
         tk.Button(
             self.dialog,
-            text="🚪 Registrar Salida",
+            text="Registrar Salida",
             font=("Arial", 16, "bold"),
             bg=COLOR_WARNING,
             fg="white",
@@ -547,7 +547,7 @@ class VentanaSalida:
         
         tk.Label(
             dialog_salida,
-            text="📤 Registrar Salida",
+            text="Registrar Salida",
             font=("Arial", 16, "bold"),
             bg=COLOR_PANEL,
             fg=COLOR_TEXT
@@ -641,7 +641,7 @@ class VentanaSalida:
         
         tk.Button(
             frame_botones,
-            text="✅ Confirmar",
+            text="Confirmar",
             font=("Arial", 11),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -651,7 +651,7 @@ class VentanaSalida:
         
         tk.Button(
             frame_botones,
-            text="❌ Cancelar",
+            text="Cancelar",
             font=("Arial", 11),
             bg=COLOR_ERROR,
             fg="white",

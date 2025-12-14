@@ -7,24 +7,81 @@
 \usepackage{listings}
 \usepackage{geometry}
 \usepackage{float}
+\usepackage{listings}
+\usepackage{inconsolata} % Fuente monoespaciada legible (opcional)
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\lstdefinelanguage{Python}{
+  keywords={from, import, as, class, def, return, if, elif, else, try, except, finally, for, while, True, False, None, with, lambda, yield, pass, break, continue, global, nonlocal, assert, raise},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={None, True, False},
+  ndkeywordstyle=\color{blue}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=true,
+  comment=[l]{\#},
+  commentstyle=\color{gray}\ttfamily,
+  stringstyle=\color{teal}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  columns=fullflexible,
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  upquote=true,
+  tabsize=4,
+  keepspaces=true,
+  captionpos=b,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  xleftmargin=2mm,
+  xrightmargin=2mm
+  columns = fullflexible,
+  extendedchars=true
+}
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true,
+    literate={
+        {á}{{\'a}}1
+        {é}{{\'e}}1
+        {í}{{\'i}}1
+        {ó}{{\'o}}1
+        {ú}{{\'u}}1
+        {Á}{{\'A}}1
+        {É}{{\'E}}1
+        {Í}{{\'I}}1
+        {Ó}{{\'O}}1
+        {Ú}{{\'U}}1
+        {ñ}{{\~n}}1
+        {Ñ}{{\~N}}1
+        {ü}{{\"u}}1
+        {Ü}{{\"U}}1
+        {¡}{{!}}1 
+        {¿}{{?}}1
+    },
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{teal},
+    commentstyle=\color{gray},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=8pt,
+    breaklines=true,
+    frame=single,
+    tabsize=4,
+    showstringspaces=false
+}
 \geometry{margin=2.5cm}
 
 \makeatother
 
-\lstset{
-  language=C++,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{blue},
-  stringstyle=\color{red},
-  commentstyle=\color{gray},
-  showstringspaces=false,
-  numbers=left,
-  numberstyle=\tiny\color{gray},
-  frame=single,
-  breaklines=true,
-  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
-           {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
-}
+
 
 
 \begin{document}
@@ -159,6 +216,55 @@ El código está organizado en módulos especializados:
 
 En esta sección se describe el proceso de desarrollo del proyecto, incluyendo los desafíos encontrados y las soluciones implementadas.
 
+\subsection{Fase 0: Preparación del Entorno Virtual (venv)}
+
+Para aislar dependencias y asegurar reproducibilidad se utiliza un entorno virtual de Python (\texttt{venv}). Los pasos se realizan desde el terminal integrado de VS Code en la carpeta del proyecto (\texttt{d:/Master/LANAI}).
+
+\paragraph{Creación y activación del entorno}
+\begin{verbatim}
+# Comprobar versión de Python
+py --version
+
+# Crear el entorno (Python 3.11 recomendado)
+py -3.11 -m venv .venv
+
+# Activar (PowerShell)
+.\.venv\Scripts\Activate.ps1
+# Si PowerShell bloquea scripts:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+# Activar (CMD clásico)
+.\.venv\Scripts\activate.bat
+\end{verbatim}
+
+\paragraph{Instalación de dependencias}
+\begin{verbatim}
+# Actualizar pip
+python -m pip install --upgrade pip
+
+# Instalar desde requirements.txt (recomendado)
+pip install -r requirements.txt
+
+# Si no existe requirements.txt, instalar paquetes principales:
+pip install opencv-python mediapipe deepface tensorflow pillow numpy bcrypt
+\end{verbatim}
+
+\paragraph{Selección del intérprete en VS Code}
+Desde la paleta de comandos: \textit{Python: Select Interpreter} y escoger 
+\texttt{.venv\textbackslash Scripts\textbackslash python.exe}.
+
+\paragraph{Ejecución y desactivación}
+\begin{verbatim}
+# Ejecutar la aplicación
+python d:/Master/LANAI/main.py
+
+# Desactivar el entorno cuando se termine
+deactivate
+\end{verbatim}
+
+Este entorno garantiza que la GUI (Tkinter), MediaPipe, DeepFace, OpenCV y el acceso a SQLite funcionen con versiones compatibles sin afectar otras instalaciones del sistema.
+% ...existing code...
+
 \subsection{Fase 1: Selección de Tecnologías y Arquitectura Base}
 
 En la fase inicial del proyecto se evaluaron diferentes tecnologías para implementar el sistema de 
@@ -194,13 +300,13 @@ Para el almacenamiento persistente se emplea \textbf{SQLite}, por su sencillez d
 La estructura se compone de tres tablas principales:
 \begin{itemize}
     \item \textbf{users}: información básica del usuario.
-        \begin{itemize}
-            \item \texttt{id} INTEGER PRIMARY KEY AUTOINCREMENT
-            \item \texttt{name} TEXT NOT NULL
-            \item \texttt{pin} TEXT NOT NULL              % hash bcrypt del PIN
-            \item \texttt{active} INTEGER DEFAULT 1
-            \item \texttt{created\_at} DATETIME DEFAULT CURRENT\_TIMESTAMP
-        \end{itemize}
+        
+        \subitem \texttt{id} INTEGER PRIMARY KEY AUTOINCREMENT
+        \subitem \texttt{name} TEXT NOT NULL
+        \subitem \texttt{pin} TEXT NOT NULL              % hash bcrypt del PIN
+        \subitem \texttt{active} INTEGER DEFAULT 1
+        \subitem \texttt{created\_at} DATETIME DEFAULT CURRENT\_TIMESTAMP
+        
     \item \textbf{faces}: múltiples embeddings por usuario.
         \begin{itemize}
             \item \texttt{id} INTEGER PRIMARY KEY AUTOINCREMENT
@@ -565,6 +671,54 @@ El código fuente completo y las instrucciones de instalación se encuentran en:
 
 
 \texttt{https://github.com/AlvaroVP96/Proyecto-LANAI.git} 
+
+\newpage
+\section{Anexo}
+\subsection{Códigos principales}
+
+\subsubsection{Codigo main}
+
+\lstinputlisting[language=Python, 
+    caption={Código main del programa}, 
+    label={lst:main}]
+    {d:/Master/LANAI/main.py}
+
+\lstinputlisting[language=Python, 
+    caption={Código de configuracion de parámetros}, 
+    label={lst:config}]
+    {d:/Master/LANAI/config.py}
+
+\subsubsection{Codigo de la ventana principal}
+
+\lstinputlisting[language=Python, 
+    caption={Ventana de acceso GUI}, 
+    label={lst:access_window}]
+    {d:/Master/LANAI/gui/access_window.py}
+
+\subsubsection{Código de la pantalla de administrador}
+
+\lstinputlisting[language=Python, 
+    caption={Ventana de administrador}, 
+    label={lst:admin_window}]
+    {d:/Master/LANAI/gui/admin_window.py}
+
+\subsubsection{Código para la base de datos}
+\lstinputlisting[language=Python, 
+    caption={Libreria de la base de datos}, 
+    label={lst:db_manager}]
+    {d:/Master/LANAI/core/db_manager.py}
+
+\subsubsection{Código para el reconocimiento facial}
+\lstinputlisting[language=Python, 
+    caption={Reconocimiento facial}, 
+    label={lst:face_recognition}]
+    {d:/Master/LANAI/core/face_recognition.py}
+
+\subsubsection{Código para el reconocimiento de gestos}
+\lstinputlisting[language=Python, 
+    caption={Reconocimiento de gestos}, 
+    label={lst:gesture_detection}]
+    {d:/Master/LANAI/core/gesture_detection.py}
 
 
 \end{document}

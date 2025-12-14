@@ -55,7 +55,7 @@ class VentanaAdmin:
         # Título
         tk.Label(
             self.window,
-            text="⚙️ PANEL DE ADMINISTRACIÓN",
+            text="PANEL DE ADMINISTRACIÓN",
             font=("Arial", 24, "bold"),
             bg=COLOR_BG,
             fg=COLOR_TEXT
@@ -67,11 +67,11 @@ class VentanaAdmin:
         
         # Tab 1: Usuarios
         self.tab_usuarios = tk.Frame(self.notebook, bg=COLOR_PANEL)
-        self.notebook.add(self.tab_usuarios, text="👥 Usuarios")
+        self.notebook.add(self.tab_usuarios, text=" Usuarios")
         
         # Tab 2: Historial
         self.tab_historial = tk.Frame(self.notebook, bg=COLOR_PANEL)
-        self.notebook.add(self.tab_historial, text="📊 Historial")
+        self.notebook.add(self.tab_historial, text=" Historial")
         
         self.setup_tab_usuarios()
         self.setup_tab_historial()
@@ -86,7 +86,7 @@ class VentanaAdmin:
         
         tk.Button(
             frame_botones,
-            text="➕ Registrar Nuevo Usuario",
+            text=" Registrar Nuevo Usuario",
             font=("Arial", 14, "bold"),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -97,7 +97,7 @@ class VentanaAdmin:
         
         tk.Button(
             frame_botones,
-            text="🔄 Actualizar Lista",
+            text="Actualizar Lista",
             font=("Arial", 12),
             bg=COLOR_INFO,
             fg="white",
@@ -145,7 +145,7 @@ class VentanaAdmin:
         
         tk.Button(
             frame_acciones,
-            text="🗑️ Eliminar Usuario",
+            text="Eliminar Usuario",
             font=("Arial", 11),
             bg=COLOR_ERROR,
             fg="white",
@@ -155,7 +155,7 @@ class VentanaAdmin:
         
         tk.Button(
             frame_acciones,
-            text="🔒 Activar/Desactivar",
+            text="Activar/Desactivar",
             font=("Arial", 11),
             bg=COLOR_WARNING,
             fg="white",
@@ -186,7 +186,7 @@ class VentanaAdmin:
             num_rostros = c.fetchone()[0]
             conn.close()
             
-            estado = "✅ Activo" if active else "❌ Inactivo"
+            estado = "Activo" if active else "Inactivo"
             rostros_text = f"{num_rostros} rostros" if num_rostros else "Sin rostros"
             
             # CORREGIR MANEJO DE FECHA
@@ -231,7 +231,7 @@ class VentanaAdmin:
         item = self.tree_usuarios.item(seleccion[0])
         user_id = item['values'][0]
         nombre = item['values'][1]
-        estado_actual = "✅ Activo" in item['values'][3]
+        estado_actual = "Activo" in item['values'][3]
         
         nuevo_estado = 0 if estado_actual else 1
         accion = "desactivar" if estado_actual else "activar"
@@ -273,7 +273,7 @@ class VentanaAdmin:
         # Título
         self.label_titulo_registro = tk.Label(
             self.dialog_registro,
-            text="📝 PASO 1: Nombre del Usuario",
+            text="PASO 1: Nombre del Usuario",
             font=("Arial", 20, "bold"),
             bg=COLOR_BG,
             fg=COLOR_TEXT
@@ -313,7 +313,7 @@ class VentanaAdmin:
         
         tk.Button(
             self.frame_contenido,
-            text="➡️ Continuar",
+            text="Continuar",
             font=("Arial", 14, "bold"),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -338,7 +338,7 @@ class VentanaAdmin:
         
         self.nombre_usuario = nombre
         self.paso_actual = 2
-        self.label_titulo_registro.config(text="📸 PASO 2: Captura de Rostros")
+        self.label_titulo_registro.config(text="PASO 2: Captura de Rostros")
         self.mostrar_paso_rostros()
     
     # ========== PASO 2: CAPTURA ROSTROS ==========
@@ -412,7 +412,7 @@ class VentanaAdmin:
         # Botón capturar
         self.btn_capturar = tk.Button(
             self.frame_contenido,
-            text="📷 Capturar Foto",
+            text="Capturar Foto",
             font=("Arial", 14, "bold"),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -462,12 +462,12 @@ class VentanaAdmin:
             
             if num >= 5:
                 self.label_progreso.config(fg=COLOR_SUCCESS)
-                self.btn_capturar.config(text="✅ Completado", state="disabled")
+                self.btn_capturar.config(text="Completado", state="disabled")
                 
                 # Botón continuar
                 tk.Button(
                     self.frame_contenido,
-                    text="➡️ Verificar y Continuar",
+                    text="Verificar y Continuar",
                     font=("Arial", 12, "bold"),
                     bg=COLOR_INFO,
                     fg="white",
@@ -496,12 +496,12 @@ class VentanaAdmin:
         if embeddings_ok >= 3:  # Al menos 3 rostros válidos
             messagebox.showinfo(
                 "Éxito",
-                f"✅ {embeddings_ok} rostros verificados correctamente",
+                f"{embeddings_ok} rostros verificados correctamente",
                 parent=self.dialog_registro
             )
             self.cerrar_camara_registro()
             self.paso_actual = 3
-            self.label_titulo_registro.config(text="🔢 PASO 3: PIN de Seguridad")
+            self.label_titulo_registro.config(text="PASO 3: PIN de Seguridad")
             self.mostrar_paso_pin()
         else:
             messagebox.showerror(
@@ -564,7 +564,7 @@ class VentanaAdmin:
         
         tk.Button(
             self.frame_contenido,
-            text="✅ Guardar Usuario",
+            text="Guardar Usuario",
             font=("Arial", 14, "bold"),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -606,7 +606,7 @@ class VentanaAdmin:
             
             messagebox.showinfo(
                 "Éxito",
-                f"✅ Usuario '{self.nombre_usuario}' registrado correctamente\n\n"
+                f"Usuario '{self.nombre_usuario}' registrado correctamente\n\n"
                 f"Rostros guardados: {len(self.embeddings_rostro)}",
                 parent=self.dialog_registro
             )
@@ -648,7 +648,7 @@ class VentanaAdmin:
         
         tk.Button(
             frame_top,
-            text="🔄 Actualizar",
+            text="Actualizar",
             font=("Arial", 11),
             bg=COLOR_INFO,
             fg="white",
@@ -658,7 +658,7 @@ class VentanaAdmin:
         
         tk.Button(
             frame_top,
-            text="📥 Exportar CSV",
+            text="Exportar CSV",
             font=("Arial", 11),
             bg=COLOR_SUCCESS,
             fg="white",
@@ -717,7 +717,7 @@ class VentanaAdmin:
                     usuario_nombre = user[1]
                     break
             
-            resultado = "✅ Concedido" if result == "granted" else "❌ Denegado"
+            resultado = "Concedido" if result == "granted" else "Denegado"
             
             self.tree_eventos.insert(
                 "",
