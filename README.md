@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![Python](https://img.shields.io/badge/python-3.8+-green.svg)
+![Python](https://img.shields.io/badge/python-3.11-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-orange.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 
@@ -97,8 +97,8 @@ Ideal para entornos que requieren alta seguridad como laboratorios, oficinas, á
 - 💿 **Espacio en disco**: 2GB libres
 
 ### Software
-- 🐍 **Python**: 3.8 o superior
-- 🪟 **Sistema Operativo**: Windows 10/11, Linux, macOS
+- 🐍 **Python**: 3.11 (recomendado)
+- 🪟 **Sistema Operativo**: Windows 10/11 (desarrollo y pruebas)
 - 📦 **pip**: Gestor de paquetes de Python
 
 ---
@@ -143,7 +143,22 @@ pip install -r requirements.txt
 python -c "import cv2, deepface, mediapipe; print('✅ Todas las dependencias instaladas correctamente')"
 ```
 
----
+### ⚡ Instalación rápida (Windows, Python 3.11)
+
+```powershell
+py --version
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Si PowerShell bloquea scripts:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
 
 ## ⚙️ Configuración
 
@@ -157,7 +172,7 @@ DB_PATH = "acceso.db"
 DEVICE_NAME = "demo-door-1"
 
 # Cámara
-CAMERA_ID = 0  # Cambiar si tienes múltiples cámaras
+CAMERA_ID = 1  # Cambiar si tienes múltiples cámaras
 CAMERA_WIDTH = 640
 CAMERA_HEIGHT = 480
 
@@ -393,7 +408,7 @@ CREATE TABLE events (
     ts DATETIME DEFAULT CURRENT_TIMESTAMP,
     device TEXT,
     user_id INTEGER,
-    result TEXT,                    -- 'granted' o 'denied'
+    result TEXT,                    -- valores habituales: 'Entrada Permitida', 'Entrada Denegada', 'salida'
     note TEXT
 );
 ```
@@ -603,7 +618,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 ## 👥 Autores
 
-- **Nombre del Estudiante** - *Desarrollo Principal* - [Tu GitHub](https://github.com/tuusuario)
+- **Nombre del Estudiante** - *Desarrollo Principal* - [Tu GitHub](https://github.com/AlvaroVP96/Proyecto-LANAI.git)
 - **Profesor/Tutor** - *Supervisión*
 
 ---
@@ -615,12 +630,6 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 - **OpenCV** - Procesamiento de video e imágenes
 - **TensorFlow** - Backend de deep learning
 - **bcrypt** - Seguridad de contraseñas
-
----
-
-## 📞 Soporte
-
-¿Problemas? Abre un [Issue](https://github.com/tuusuario/lanai/issues) en GitHub
 
 ---
 
